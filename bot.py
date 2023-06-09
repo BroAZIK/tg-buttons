@@ -1,6 +1,7 @@
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 from handlers import (
     start,
+    callback_query_handler,
 )
 import os
 
@@ -13,7 +14,12 @@ def main():
     dispatcher = updater.dispatcher
 
     # add hendlers
-    dispatcher.add_handler(handler=CommandHandler(command='start', callback=start))
+    dispatcher.add_handler(
+        handler=CommandHandler(command='start', callback=start)
+    )
+    dispatcher.add_handler(
+        handler=CallbackQueryHandler(callback=callback_query_handler)
+    )
 
     # start polling
     updater.start_polling()
